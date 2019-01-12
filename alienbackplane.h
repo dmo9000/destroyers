@@ -15,6 +15,7 @@ public:
     ~AlienBackPlane();
     int Render() override;
 		int Tick() override;
+    void Render();
 
 protected:
 
