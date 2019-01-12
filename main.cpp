@@ -59,18 +59,14 @@ int main(int argc, char *argv[])
 
     running = true;
 
-		while (1) {
-        if (myTTY->tty_getbuflen()) {
+		while (running) {
+        if (myTTY->kb_getbuflen()) {
 							printf("+++ got data!\n");
-							}	else {
-							printf("+++ no data\n");
+							running = false;
 				}
+    		ansitty_canvas_setdirty(true);
 			}
 
-
-		while(1) {
-			printf("looping!\n");
-			}
 
     exit(0);
 }

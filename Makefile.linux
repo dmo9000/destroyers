@@ -9,13 +9,13 @@ LFLAGS = $(WARNINGS) -lGL -lGLU -lglut -lm -pthread
 
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a ../ansiutils/ansistate.o
 
-all: frogue
+all: destroyers
 
 clean:
 	rm -rf obj
 	rm -f sim
 	rm -f *.o
-	rm -f frogue
+	rm -f destroyers
 
 obj:
 	mkdir obj
@@ -35,10 +35,7 @@ tty.o: tty.cpp
 ansitty.o: ansitty.c
 	$(CC) $(CFLAGS) -c ansitty.c
 
-firedemo.o: firedemo.c
-	$(CC) $(CFLAGS) -c firedemo.c
-
-frogue: main.o object.o actor.o $(OGL_OBJS) ansitty.o tty.o firedemo.o
-	$(CXX) $(LFLAGS)  firedemo.o main.o object.o actor.o tty.o $(OGL_OBJS) ansitty.o -o frogue  
+destroyers: main.o object.o actor.o $(OGL_OBJS) ansitty.o tty.o
+	$(CXX) $(LFLAGS) main.o object.o actor.o tty.o $(OGL_OBJS) ansitty.o -o destroyers  
 
 

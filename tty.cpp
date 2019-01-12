@@ -48,15 +48,7 @@ int TTY::getchar()
 
 }
 
-int TTY::tty_getbuflen()
+int TTY::kb_getbuflen()
 {
-	uint16_t c = 0;
-	c = tty_getbuflen();
-	fprintf(stderr, "+++ buflen = %u\n", c);
-	if (c) {
-			fprintf(stderr, "+++ got keyboard data\n");
-			} else {
-			fprintf(stderr, "+++ no keyboard data\n");
-			}
-	return c;
+	return tty_getbuflen();
 }
