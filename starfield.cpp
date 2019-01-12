@@ -40,9 +40,9 @@ void StarField::Scroll()
         Stars[i].position.y += Stars[i].speed.y;
         if (Stars[i].position.y >= 384) {
             Stars[i].position.y = (Stars[i].position.y % 384);
-        		Stars[i].position.x = rand() % 640;
-        		Stars[i].color = (rand() % 255);
-        		Stars[i].speed.y = (rand() % 5) + 1;
+            Stars[i].position.x = rand() % 640;
+            Stars[i].color = (rand() % 255);
+            Stars[i].speed.y = (rand() % 5) + 1;
         }
     }
     return;
@@ -52,8 +52,8 @@ void StarField::Render()
 {
 
     for (int i = 0; i < MAX_STARS; i++) {
-        setTexturePixel(Stars[i].position.x, Stars[i].position.y, 
-									Stars[i].color, Stars[i].color, Stars[i].color);
+        setTexturePixel(Stars[i].position.x, Stars[i].position.y,
+                        Stars[i].color, Stars[i].color, Stars[i].color);
     }
     return;
 }

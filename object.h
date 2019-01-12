@@ -10,8 +10,8 @@ class Object
 {
 
 public:
-	Object();
-	~Object();
+    Object();
+    ~Object();
 
 protected:
 

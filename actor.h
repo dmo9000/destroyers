@@ -7,8 +7,11 @@ class Actor : public Object
 {
 
 public:
-	Actor();
-	~Actor();
+    Actor();
+    ~Actor();
+    float TickFreq = 100.0f;
+    float TickToGo = TickFreq;
+    bool bCanEverTick = false;
 
 protected:
 

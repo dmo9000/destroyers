@@ -8,16 +8,16 @@ class TTY : public Object
 {
 
 public:
-	TTY();
-	~TTY();
-	int Init();
-	int putc(unsigned char c);
-	int puts(const char *s);
-	int getchar();
-	int hasinput();
-	int set_debug(bool debugstate);
-	ANSITTY *TTYDevice;
-		
+    TTY();
+    ~TTY();
+    int Init();
+    int putc(unsigned char c);
+    int puts(const char *s);
+    int getchar();
+    int hasinput();
+    int set_debug(bool debugstate);
+    ANSITTY *TTYDevice;
+
 protected:
 
 private:
