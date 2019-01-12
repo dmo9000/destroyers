@@ -25,13 +25,8 @@ public:
     StarField();
     ~StarField();
     int Init();
-    void Scroll();
-    void Render();
-    /*
-    	float TickFreq = 100.0f;
-    	float TickToGo = TickFreq;
-    	bool bCanEverTick = false;
-    */
+   	int Tick() override;
+    int Render() override;
 
 protected:
 

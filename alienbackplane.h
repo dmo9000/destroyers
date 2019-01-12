@@ -13,7 +13,8 @@ class AlienBackPlane : public Actor
 public:
     AlienBackPlane();
     ~AlienBackPlane();
-    Render();
+    int Render() override;
+		int Tick() override;
 
 protected:
 

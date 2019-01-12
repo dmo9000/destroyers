@@ -1,10 +1,12 @@
 #include <chrono>
 #include <cstring>
 #include <iostream>
-#include "actor.h"
-#include "tty.h"
+#include <vector>
 #include "unistd.h"
 #include "ansitty.h"
+#include "tty.h"
+#include "actor.h"
+#include "world.h"
 #include "starfield.h"
 #include "alienbackplane.h"
 
@@ -31,6 +33,7 @@ int main(int argc, char *argv[])
     TTY *myTTY = NULL;
     StarField *MyStarField = NULL;
     AlienBackPlane *MyAlienBackPlane = NULL;
+		World *MyWorld = NULL;
     float DeltaTime = 0.0f;
 
     char buffer[2048];
@@ -40,14 +43,15 @@ int main(int argc, char *argv[])
     myTTY = new TTY();
     myTTY->Init();
 
+    sleep(1);
+
+		MyWorld = new World;
     MyStarField = new StarField;
     MyStarField->Init();
     MyAlienBackPlane = new AlienBackPlane;
 
-    //gfx_opengl_setwindowtitle("Destroyers 0.01");
-
-    sleep(3);
-
+		MyWorld->RegisterActor(MyStarField);
+		MyWorld->RegisterActor(MyAlienBackPlane);
 
     gfx_opengl_setwindowtitle("Destroyers");
 
@@ -73,14 +77,17 @@ int main(int argc, char *argv[])
             DeltaTime = 0.001f;
         }
 
-        MyStarField->TickToGo -= DeltaTime;
+        //MyStarField->TickToGo -= DeltaTime;
         //fprintf(stderr, "DeltaTime %f, MyStarField->TickToGo %f\n", DeltaTime, MyStarField->TickToGo);
 
+            //printf("+++ Starfield Scroll Timer expired\n");
+          
+				/*
         if (MyStarField->TickToGo <= 0.0f) {
             MyStarField->Scroll();
             MyStarField->TickToGo = MyStarField->TickFreq;
-            //printf("+++ Starfield Scroll Timer expired\n");
         }
+				*/
 
         /* input processing */
 
@@ -89,17 +96,17 @@ int main(int argc, char *argv[])
             running = false;
         }
 
+				
+				MyWorld->ProcessTicks(DeltaTime);
+
         gfx_opengl_lock();
         if (myTTY->TTYDevice->canvas->is_dirty != true) {
             clearTexture(myTTY->TTYDevice->canvas);
-            MyStarField->Render();
-            MyAlienBackPlane->Render();
+						MyWorld->RenderActors();
         }
         myTTY->TTYDevice->canvas->is_dirty = true;
         gfx_opengl_unlock();
-        //gfx_opengl_expose();
     }
-
 
     exit(0);
 }

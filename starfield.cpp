@@ -5,7 +5,8 @@ StarField::StarField()
 {
 
     std::cout << "StarField created" << std::endl;
-
+		bCanEverTick = true;
+		TickFreq = 100.0f;
 
 }
 
@@ -33,8 +34,11 @@ int StarField::Init()
 
 }
 
-void StarField::Scroll()
+int StarField::Tick()
 {
+		if (bShowDebug) {
+			std::cout << "StarField::Tick()" << std::endl;
+			}
 
     for (int i = 0; i < MAX_STARS; i++) {
         Stars[i].position.y += Stars[i].speed.y;
@@ -45,15 +49,15 @@ void StarField::Scroll()
             Stars[i].speed.y = (rand() % 5) + 1;
         }
     }
-    return;
+    return 1;
 }
 
-void StarField::Render()
+int StarField::Render()
 {
 
     for (int i = 0; i < MAX_STARS; i++) {
         setTexturePixel(Stars[i].position.x, Stars[i].position.y,
                         Stars[i].color, Stars[i].color, Stars[i].color);
     }
-    return;
+    return 1;
 }

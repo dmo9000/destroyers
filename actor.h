@@ -9,13 +9,25 @@ class Actor : public Object
 public:
     Actor();
     ~Actor();
-    float TickFreq = 100.0f;
-    float TickToGo = TickFreq;
-    bool bCanEverTick = false;
+		virtual int Render();
+		virtual int Tick();
+		int SubtractDeltaTime(float d);
+		bool IsTickable();
+		bool IsVisible();
+		
 
 protected:
+		/* by default, tick on every frame */
+    float TickFreq = 0.0f;
+		/* ticks are disabled by default */
+    bool bCanEverTick = false;
+		/* debugging flag */
+		bool bShowDebug = false;
+		/* rendered at all? */
+		bool bIsVisible = true;
 
 private:
+    float TickToGo = TickFreq;
 
 };
 
