@@ -1,7 +1,7 @@
 #include "object.h"
 extern "C" {
 #include "ansitty.h"
-int tty_getbuflen();
+#include "ansistate.h"
 }
 
 class TTY : public Object
@@ -14,8 +14,10 @@ public:
 	int putc(unsigned char c);
 	int puts(const char *s);
 	int getchar();
-	int kb_getbuflen();
-
+	int hasinput();
+	int set_debug(bool debugstate);
+	ANSITTY *TTYDevice;
+		
 protected:
 
 private:

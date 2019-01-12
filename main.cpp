@@ -14,6 +14,7 @@ using std::memset;
 extern "C" {
     void fireMain(void);
     void ansitty_canvas_setdirty(bool state);
+		void clearTexture(ANSICanvas *canvas);
 };
 
 
@@ -66,11 +67,11 @@ int main(int argc, char *argv[])
     running = true;
 
 		while (running) {
-        if (myTTY->kb_getbuflen()) {
+        if (myTTY->hasinput()) {
 							printf("+++ got data!\n");
 							running = false;
 				}
-				myTTY->canvas->clearTexture(myTTY->canvas);
+			  clearTexture(myTTY->TTYDevice->canvas);
 				MyStarField->Tick();
     		ansitty_canvas_setdirty(true);
 			}
