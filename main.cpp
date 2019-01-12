@@ -4,6 +4,7 @@
 #include "tty.h"
 #include "unistd.h"
 #include "ansitty.h"
+#include "starfield.h"
 
 using std::cout;
 using std::endl;
@@ -20,12 +21,17 @@ int main(int argc, char *argv[])
 {
 
     TTY *myTTY = NULL;
+		StarField *MyStarField = NULL;
+
     char buffer[2048];
     int bytes =0;
     bool running = false;
 
     myTTY = new TTY();
     myTTY->Init();
+
+		MyStarField = new StarField;
+		MyStarField->Init(); 
 
     sleep(1);
 
@@ -64,6 +70,8 @@ int main(int argc, char *argv[])
 							printf("+++ got data!\n");
 							running = false;
 				}
+				myTTY->canvas->clearTexture(myTTY->canvas);
+				MyStarField->Tick();
     		ansitty_canvas_setdirty(true);
 			}
 

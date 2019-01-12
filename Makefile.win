@@ -9,6 +9,8 @@ LFLAGS = $(WARNINGS)
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a ../ansiutils/ansistate.o
 #OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
 
+CPP_OBJS=starfield.o
+
 all: destroyers
 
 clean:
@@ -35,7 +37,7 @@ tty.o: tty.cpp
 ansitty.o: ansitty.c
 	$(CC) $(CFLAGS) -c ansitty.c
 
-destroyers: main.o object.o actor.o $(OGL_OBJS) ansitty.o tty.o
-	$(CXX) $(LFLAGS) main.o object.o actor.o tty.o $(OGL_OBJS) ansitty.o -o destroyers  -lglu32 -lopengl32 -lglut
+destroyers: main.o object.o actor.o $(OGL_OBJS) ansitty.o tty.o $(CPP_OBJS)
+	$(CXX) $(LFLAGS) $(CPP_OBJS) main.o object.o actor.o tty.o $(OGL_OBJS) ansitty.o -o destroyers  -lglu32 -lopengl32 -lglut
 
 
