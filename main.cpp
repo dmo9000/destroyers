@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cstring>
 #include <iostream>
 #include "actor.h"
@@ -17,6 +18,7 @@ extern "C" {
 		void clearTexture(ANSICanvas *canvas);
 		void gfx_opengl_lock();
 		void gfx_opengl_unlock();
+		void gfx_opengl_expose();
 };
 
 
@@ -26,6 +28,7 @@ int main(int argc, char *argv[])
 		uint64_t counter = 0;
     TTY *myTTY = NULL;
 		StarField *MyStarField = NULL;
+		float DeltaTime = 0.0f;
 
     char buffer[2048];
     int bytes =0;
@@ -55,6 +58,7 @@ int main(int argc, char *argv[])
 
     myTTY->puts("                         (development version only)\n");
 
+     ansitty_canvas_setdirty(true);
 
     fprintf(stderr, "Waiting for input ...\n");
     while (myTTY->getchar() == 0) {
@@ -69,23 +73,44 @@ int main(int argc, char *argv[])
 
     running = true;
 
+
+		auto CurrentChrono = std::chrono::high_resolution_clock::now();
+		auto PreviousChrono = CurrentChrono;
+		auto DeltaChrono = CurrentChrono - PreviousChrono; 
+
+		MyStarField->TickToGo = 1000.0f; 
+
 		while (running) {
+
+				/* calculate the time delta since we last went through the loop. this will
+ 					 be used to trigger ticks on the various game actors based on their tick frequency */
+
+				PreviousChrono = CurrentChrono;
+				CurrentChrono = std::chrono::high_resolution_clock::now();
+				DeltaChrono = CurrentChrono - PreviousChrono;
+				//std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(CurrentChrono-PreviousChrono).count() << endl;
+				DeltaTime =  std::chrono::duration_cast<std::chrono::milliseconds>(CurrentChrono-PreviousChrono).count();
+				DeltaTime /= 100.0;
+				
+				//MyStarField->TickToGo -= DeltaTime;
+				fprintf(stderr, "DeltaTime %f, MyStarField->TickToGo %f\n", DeltaTime, MyStarField->TickToGo);
+
+//				if (MyStarField->TickToGo < 0.0f) {
+					//MyStarField->Scroll();
+	//				MyStarField->TickToGo = MyStarField->TickFreq;
+					//printf("+++ Starfield Scroll Timer expired\n");
+		//			}
+
+				/* input processing */
+
         if (myTTY->hasinput()) {
 							printf("+++ got data!\n");
 							running = false;
 				}
-
-//				gfx_opengl_lock();
-//				gfx_opengl_unlock();
-				counter++;
-				if (!(counter % 100)) {
-					MyStarField->Scroll();
-				}
-				gfx_opengl_lock();
+	
 			  clearTexture(myTTY->TTYDevice->canvas);
 				MyStarField->Render();
-    		ansitty_canvas_setdirty(true);
-				gfx_opengl_unlock();
+    		gfx_opengl_expose();
 			}
 
 

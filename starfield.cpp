@@ -22,8 +22,11 @@ int StarField::Init()
 
     for (int i = 0; i < MAX_STARS; i++) {
         /* FIXME: get resolution from underlying canvas/display device */
-        star_positions[i].x = rand() % 640;
-        star_positions[i].y = rand() % 384;
+        Stars[i].position.x = rand() % 640;
+        Stars[i].position.y = rand() % 384;
+        Stars[i].speed.x = 0;
+        Stars[i].speed.y = (rand() % 5) + 1;
+        Stars[i].color = (rand() % 255);
     }
 
     return 1;
@@ -34,9 +37,12 @@ void StarField::Scroll()
 {
 
     for (int i = 0; i < MAX_STARS; i++) {
-        star_positions[i].y ++;
-        if (star_positions[i].y >= 384) {
-            star_positions[i].y = (star_positions[i].y % 384);
+        Stars[i].position.y += Stars[i].speed.y;
+        if (Stars[i].position.y >= 384) {
+            Stars[i].position.y = (Stars[i].position.y % 384);
+        		Stars[i].position.x = rand() % 640;
+        		Stars[i].color = (rand() % 255);
+        		Stars[i].speed.y = (rand() % 5) + 1;
         }
     }
     return;
@@ -46,7 +52,8 @@ void StarField::Render()
 {
 
     for (int i = 0; i < MAX_STARS; i++) {
-        setTexturePixel(star_positions[i].x, star_positions[i].y, 255, 255, 255);
+        setTexturePixel(Stars[i].position.x, Stars[i].position.y, 
+									Stars[i].color, Stars[i].color, Stars[i].color);
     }
     return;
 }
