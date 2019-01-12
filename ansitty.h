@@ -27,5 +27,8 @@ int ansitty_updatecursor();
 int tty_getbuflen();
 int input_character();
 
+/* latest API changes */
+
+int ansitty_putc_lower(ANSITTY *device, unsigned char c);
 
 #endif /* __ANSITTY_H__ */
