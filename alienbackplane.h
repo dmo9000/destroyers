@@ -13,7 +13,7 @@ class AlienBackPlane : public Actor
 public:
     AlienBackPlane();
     ~AlienBackPlane();
-    Render();
+    void Render();
 
 protected:
 
