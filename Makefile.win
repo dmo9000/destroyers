@@ -6,8 +6,7 @@ WARNINGS = -Wall
 CFLAGS = $(WARNINGS)  -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
 LFLAGS = $(WARNINGS)  
 
-OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a ../ansiutils/ansistate.o
-#OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
+OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
 
 CPP_OBJS=starfield.o
 
@@ -23,7 +22,7 @@ obj:
 	mkdir obj
 
 main.o: main.cpp
-	$(CXX) -c main.cpp
+	$(CXX) $(CFLAGS) -c main.cpp
 	
 object.o: object.cpp
 	$(CXX) -c object.cpp
@@ -32,7 +31,7 @@ actor.o: actor.cpp
 	$(CXX) -c actor.cpp
 
 tty.o: tty.cpp
-	$(CXX) -c tty.cpp
+	$(CXX) $(CFLAGS) -c tty.cpp
 
 ansitty.o: ansitty.c
 	$(CC) $(CFLAGS) -c ansitty.c

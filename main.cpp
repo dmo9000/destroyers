@@ -15,12 +15,15 @@ extern "C" {
     void fireMain(void);
     void ansitty_canvas_setdirty(bool state);
 		void clearTexture(ANSICanvas *canvas);
+		void gfx_opengl_lock();
+		void gfx_opengl_unlock();
 };
 
 
 int main(int argc, char *argv[])
 {
 
+		uint64_t counter = 0;
     TTY *myTTY = NULL;
 		StarField *MyStarField = NULL;
 
@@ -71,9 +74,18 @@ int main(int argc, char *argv[])
 							printf("+++ got data!\n");
 							running = false;
 				}
+
+//				gfx_opengl_lock();
+//				gfx_opengl_unlock();
+				counter++;
+				if (!(counter % 100)) {
+					MyStarField->Scroll();
+				}
+				gfx_opengl_lock();
 			  clearTexture(myTTY->TTYDevice->canvas);
-				MyStarField->Tick();
+				MyStarField->Render();
     		ansitty_canvas_setdirty(true);
+				gfx_opengl_unlock();
 			}
 
 

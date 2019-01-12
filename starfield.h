@@ -19,7 +19,8 @@ public:
 	StarField();
 	~StarField();
 	int Init();
-	void Tick();
+	void Scroll();
+	void Render();
 
 protected:
 
