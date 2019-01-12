@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
     myTTY->puts("\x1b\x5B""?25l");
     myTTY->puts("\n\n");
 
+/*
     FILE *myfile = NULL;
     myfile = fopen("data/ansi/frogue.ans", "rb");
     while (!feof(myfile) && !ferror(myfile)) {
@@ -59,11 +60,14 @@ int main(int argc, char *argv[])
     myTTY->puts("                         (development version only)\n");
 
      ansitty_canvas_setdirty(true);
+	*/
 
+/*
     fprintf(stderr, "Waiting for input ...\n");
     while (myTTY->getchar() == 0) {
         ansitty_canvas_setdirty(true);
     }
+*/
 
     myTTY->puts("\x1b\x5B""2J");
 
@@ -78,7 +82,8 @@ int main(int argc, char *argv[])
 		auto PreviousChrono = CurrentChrono;
 		auto DeltaChrono = CurrentChrono - PreviousChrono; 
 
-		MyStarField->TickToGo = 1000.0f; 
+//		MyStarField->TickToGo = 1000.0f; 
+
 
 		while (running) {
 
@@ -91,15 +96,19 @@ int main(int argc, char *argv[])
 				//std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(CurrentChrono-PreviousChrono).count() << endl;
 				DeltaTime =  std::chrono::duration_cast<std::chrono::milliseconds>(CurrentChrono-PreviousChrono).count();
 				DeltaTime /= 100.0;
-				
-				//MyStarField->TickToGo -= DeltaTime;
-				fprintf(stderr, "DeltaTime %f, MyStarField->TickToGo %f\n", DeltaTime, MyStarField->TickToGo);
 
-//				if (MyStarField->TickToGo < 0.0f) {
-					//MyStarField->Scroll();
-	//				MyStarField->TickToGo = MyStarField->TickFreq;
+				if (DeltaTime <= 0.001f) {
+						DeltaTime = 0.001f;
+						}
+				
+				MyStarField->TickToGo -= DeltaTime;
+				//fprintf(stderr, "DeltaTime %f, MyStarField->TickToGo %f\n", DeltaTime, MyStarField->TickToGo);
+
+				if (MyStarField->TickToGo <= 0.0f) {
+					MyStarField->Scroll();
+					MyStarField->TickToGo = MyStarField->TickFreq;
 					//printf("+++ Starfield Scroll Timer expired\n");
-		//			}
+					}
 
 				/* input processing */
 
@@ -108,8 +117,13 @@ int main(int argc, char *argv[])
 							running = false;
 				}
 	
-			  clearTexture(myTTY->TTYDevice->canvas);
-				MyStarField->Render();
+				gfx_opengl_lock();
+				if (myTTY->TTYDevice->canvas->is_dirty != true) {
+				  clearTexture(myTTY->TTYDevice->canvas);
+					MyStarField->Render();
+					}
+					myTTY->TTYDevice->canvas->is_dirty = true;
+				gfx_opengl_unlock();
     		gfx_opengl_expose();
 			}
 
