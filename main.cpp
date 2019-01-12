@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 					}
 					myTTY->TTYDevice->canvas->is_dirty = true;
 				gfx_opengl_unlock();
-    		gfx_opengl_expose();
+    		//gfx_opengl_expose();
 			}
 
 
