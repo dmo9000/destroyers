@@ -3,12 +3,15 @@ CC = /usr/bin/x86_64-w64-mingw32-gcc.exe
 CXX =  /usr/bin/x86_64-w64-mingw32-g++.exe
 WARNINGS = -Wall
 #CFLAGS = $(WARNINGS) -g -ggdb -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
-CFLAGS = $(WARNINGS)  -ggdb -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
+#CFLAGS = $(WARNINGS)  -ggdb -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
+CFLAGS = $(WARNINGS)  -funroll-loops -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
+
+CXXFLAGS = -O2
 LFLAGS = $(WARNINGS)  
 
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
 
-CPP_OBJS=world.o starfield.o alienbackplane.o
+CPP_OBJS=world.o starfield.o alienbackplane.o alienactor.o
 
 all: destroyers
 

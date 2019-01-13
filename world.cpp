@@ -20,7 +20,7 @@ World::~World()
 int World::RegisterActor(Actor *a)
 {
 
-    std::cout << "Registering actor ... " << std::endl;
+//    std::cout << "Registering actor ... " << std::endl;
     RegisteredActors.push_back(a);
 
 }

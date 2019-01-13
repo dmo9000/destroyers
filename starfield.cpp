@@ -6,7 +6,11 @@ StarField::StarField()
 
     std::cout << "StarField created" << std::endl;
 		bCanEverTick = true;
-		TickFreq = 100.0f;
+	//	TickFreq = 100.0f;
+//		TickFreq = 10.0f;
+//		TickFreq = 1.0f;
+			TickFreq = 10.0f;
+		bIsVisible = true;
 
 }
 

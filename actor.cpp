@@ -5,7 +5,7 @@
 Actor::Actor()
 {
 
-    std::cout << "Actor created" << std::endl;
+//    std::cout << "Actor created" << std::endl;
 		WorldRegister();
 
 }
@@ -13,14 +13,14 @@ Actor::Actor()
 Actor::~Actor()
 {
 
-//    std::cout << "Actor destroyed" << std::endl;
+   std::cout << "Actor destroyed" << std::endl;
 
 }
 
 int Actor::Render()
 {
 		/* declared virtual, and usually overridden by derived class */
-    std::cout << "Actor Render" << std::endl;
+    std::cout << "Actor::Render()" << std::endl;
 
 }
 
@@ -28,7 +28,7 @@ int Actor::Tick()
 {
 
 		/* declared virtual, and usually overridden by derived class */
-    std::cout << "Actor Render" << std::endl;
+    std::cout << "Actor::Tick()" << std::endl;
 }
 
 int Actor::SubtractDeltaTime(float d)
@@ -64,4 +64,10 @@ bool Actor::IsTickable()
 bool Actor::IsVisible()
 {
 	return bIsVisible;
+}
+
+bool Actor::SetVisibility(bool vs)
+{
+	bIsVisible = vs;
+	return (bIsVisible);
 }

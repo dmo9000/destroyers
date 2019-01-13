@@ -1,31 +1,35 @@
 #include "alienbackplane.h"
 
-#define DISPLAY_WIDTH		640
-#define DISPLAY_HEIGHT	384
-
-#define ALIEN_CELLSIZE	48
-#define ALIEN_COLS			12
-#define ALIEN_ROWS			5
-#define ARRAY_WIDTH			(ALIEN_CELLSIZE * ALIEN_COLS)
-#define ARRAY_HEIGHT		(ALIEN_CELLSIZE * ALIEN_ROWS)
-#define ARRAY_XOFFSET		((DISPLAY_WIDTH - ARRAY_WIDTH) / 2)
-#define ARRAY_YOFFSET		(ARRAY_XOFFSET)
 
 AlienBackPlane::AlienBackPlane()
 {
 
     std::cout << "AlienBackPlane created" << std::endl;
 		bCanEverTick = true;
-		TickFreq = 1000.0f;
+		TickFreq = 100.0f;
 		//TickFreq = 10.0f;	
-		bIsVisible = true;
+//		TickFreq = 50.0f;	
+		bIsVisible = false;
 //		bShowDebug = true;
 
 
+	/*
 		std::cout << "Array width:  " << ARRAY_WIDTH << std::endl;
 		std::cout << "Array height: " << ARRAY_HEIGHT << std::endl;
 		std::cout << "Array xoffset: " << ARRAY_XOFFSET << std::endl;
 		std::cout << "Array yoffset: " << ARRAY_YOFFSET << std::endl;
+	*/
+
+		for (int jj = 0 ; jj < ALIEN_ROWS; jj++) {
+			for (int ii = 0 ; ii < ALIEN_COLS; ii++) {
+//			if (!(jj % 2)) {
+				Aliens[ii][jj] = new AlienActor;
+				Aliens[ii][jj]->SetGridLocation(ii,jj); 
+				Aliens[ii][jj]->SetBackPlane(this);
+				Aliens[ii][jj]->SetVisibility(true);
+//				}
+			}
+		}
 
 }
 
@@ -41,6 +45,7 @@ AlienBackPlane::Render()
 
 		int XTickOffset = XTickCount * 2;
     /* just a shitty green marker box for now */
+
 
 		for (int x = 0; x <= ALIEN_COLS; x++) {
 			grx_line(ARRAY_XOFFSET + (x * ALIEN_CELLSIZE) + XTickOffset, ARRAY_YOFFSET + YTickOffset, 
@@ -81,4 +86,16 @@ int AlienBackPlane::Tick()
 			}
 
 		return 0;
+}
+
+int AlienBackPlane::GetFormationPosition(Vector2 *p, int x, int y)
+{
+	int XTickOffset = XTickCount * 2;
+
+	assert(p);
+
+	p->x = ARRAY_XOFFSET + (x * ALIEN_CELLSIZE) + XTickOffset; 
+	p->y = ARRAY_YOFFSET + (y * ALIEN_CELLSIZE) + YTickOffset;
+
+	return 1;
 }

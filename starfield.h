@@ -14,9 +14,11 @@ typedef struct _stardata {
 } StarData;
 
 
+/*
 extern "C" {
     void setTexturePixel(int x, int y, u8 r, u8 g, u8 b);
 };
+*/
 
 class StarField : public Actor
 {
