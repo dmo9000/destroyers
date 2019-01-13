@@ -14,6 +14,7 @@ public:
 		int SubtractDeltaTime(float d);
 		bool IsTickable();
 		bool IsVisible();
+		int WorldRegister();
 		
 
 protected:

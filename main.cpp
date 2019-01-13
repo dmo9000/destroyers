@@ -25,6 +25,13 @@ extern "C" {
     int  gfx_opengl_setwindowtitle(char *newtitle);
 };
 
+World *MyWorld = NULL;
+
+World *GetWorld()
+{
+
+		return MyWorld; 
+}
 
 int main(int argc, char *argv[])
 {
@@ -33,7 +40,6 @@ int main(int argc, char *argv[])
     TTY *myTTY = NULL;
     StarField *MyStarField = NULL;
     AlienBackPlane *MyAlienBackPlane = NULL;
-		World *MyWorld = NULL;
     float DeltaTime = 0.0f;
 
     char buffer[2048];
@@ -42,16 +48,16 @@ int main(int argc, char *argv[])
 
     myTTY = new TTY();
     myTTY->Init();
+		MyWorld = new World;
 
     sleep(1);
 
-		MyWorld = new World;
     MyStarField = new StarField;
     MyStarField->Init();
     MyAlienBackPlane = new AlienBackPlane;
 
-		MyWorld->RegisterActor(MyStarField);
-		MyWorld->RegisterActor(MyAlienBackPlane);
+//		MyWorld->RegisterActor(MyStarField);
+//		MyWorld->RegisterActor(MyAlienBackPlane);
 
     gfx_opengl_setwindowtitle("Destroyers");
 

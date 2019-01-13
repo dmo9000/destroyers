@@ -1,10 +1,12 @@
+#include <cassert>
 #include "actor.h"
+#include "world.h"
 
 Actor::Actor()
 {
 
-//    std::cout << "Actor created" << std::endl;
-
+    std::cout << "Actor created" << std::endl;
+		WorldRegister();
 
 }
 
@@ -43,6 +45,15 @@ int Actor::SubtractDeltaTime(float d)
     }
 
     return 0;
+}
+
+int Actor::WorldRegister()
+{
+	World *ThisWorld = NULL;
+	ThisWorld = GetWorld();
+	assert(ThisWorld);
+	ThisWorld->RegisterActor(this);
+	return 1;
 }
 
 bool Actor::IsTickable()

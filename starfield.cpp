@@ -42,6 +42,9 @@ int StarField::Tick()
 
     for (int i = 0; i < MAX_STARS; i++) {
         Stars[i].position.y += Stars[i].speed.y;
+				if (Stars[i].color) {
+						Stars[i].color -= 1;
+						}
         if (Stars[i].position.y >= 384) {
             Stars[i].position.y = (Stars[i].position.y % 384);
             Stars[i].position.x = rand() % 640;

@@ -13,13 +13,15 @@ class AlienBackPlane : public Actor
 public:
     AlienBackPlane();
     ~AlienBackPlane();
-    int Render() override;
 		int Tick() override;
-    void Render();
+    int Render() override;
 
 protected:
 
 private:
+		int XDirection = 1;
+		int XTickCount = 0;
+		int YTickOffset = 0;
 
 };
 

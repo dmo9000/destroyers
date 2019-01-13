@@ -24,4 +24,6 @@ private:
 
 };
 
+World *GetWorld();
+
 #endif /* __WORLD_H__ */
