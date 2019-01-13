@@ -49,7 +49,7 @@ AlienBackPlane::~AlienBackPlane()
 
 }
 
-AlienBackPlane::Render()
+int AlienBackPlane::Render()
 {
 
 		int XTickOffset = XTickCount * 2;

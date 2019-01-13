@@ -8,7 +8,7 @@ CFLAGS = $(WARNINGS) -g -ggdb -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
 LFLAGS = $(WARNINGS) -lGL -lGLU -lglut -lm -pthread 
 
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
-CPP_OBJS=starfield.o
+CPP_OBJS=world.o starfield.o alienbackplane.o alienactor.o
 
 all: destroyers
 
