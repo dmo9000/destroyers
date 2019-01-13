@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <cstdbool>
 #include "actor.h"
-#include "vector2.h"
 
 typedef uint8_t u8;
 

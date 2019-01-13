@@ -20,6 +20,14 @@ AlienBackPlane::AlienBackPlane()
 		std::cout << "Array yoffset: " << ARRAY_YOFFSET << std::endl;
 	*/
 
+	RowColors[0] = { 255, 255, 255 };
+	RowColors[1] = { 255, 0, 0 };
+	RowColors[2] = { 0, 255, 0 };
+	RowColors[3] = { 0, 0, 255 };
+	RowColors[4] = { 255, 255, 255 };
+	
+
+
 		for (int jj = 0 ; jj < ALIEN_ROWS; jj++) {
 			for (int ii = 0 ; ii < ALIEN_COLS; ii++) {
 //			if (!(jj % 2)) {
@@ -27,6 +35,7 @@ AlienBackPlane::AlienBackPlane()
 				Aliens[ii][jj]->SetGridLocation(ii,jj); 
 				Aliens[ii][jj]->SetBackPlane(this);
 				Aliens[ii][jj]->SetVisibility(true);
+				Aliens[ii][jj]->SetBaseColor(RowColors[jj]);
 //				}
 			}
 		}

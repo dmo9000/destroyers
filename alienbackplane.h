@@ -1,7 +1,6 @@
 #ifndef __ALIENBACKPLANE_H__
 #define __ALIENBACKPLANE_H__
 
-#include "vector2.h"
 #include "actor.h"
 #include "alienactor.h"
 
@@ -28,7 +27,7 @@ class AlienBackPlane : public Actor
 
 public:
     AlienBackPlane();
-    ~AlienBackPlane();
+    virtual ~AlienBackPlane();
 		int Tick() override;
     int Render() override;
 		int GetFormationPosition(Vector2 *p, int x, int y);
@@ -40,6 +39,7 @@ private:
 		int XTickCount = 0;
 		int YTickOffset = 0;
 		AlienActor *Aliens[ALIEN_COLS][ALIEN_ROWS];
+		Vector3 RowColors[ALIEN_ROWS];
 
 };
 

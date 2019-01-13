@@ -22,7 +22,7 @@ extern "C" {
     void gfx_opengl_lock();
     void gfx_opengl_unlock();
     void gfx_opengl_expose();
-    int  gfx_opengl_setwindowtitle(char *newtitle);
+    int  gfx_opengl_setwindowtitle(const char *newtitle);
 };
 
 World *MyWorld = NULL;
@@ -36,14 +36,8 @@ World *GetWorld()
 int main(int argc, char *argv[])
 {
 
-    uint64_t counter = 0;
     TTY *myTTY = NULL;
-    StarField *MyStarField = NULL;
-    AlienBackPlane *MyAlienBackPlane = NULL;
     float DeltaTime = 0.0f;
-
-    char buffer[2048];
-    int bytes =0;
     bool running = false;
 
     myTTY = new TTY();
@@ -52,12 +46,9 @@ int main(int argc, char *argv[])
 
     sleep(1);
 
-    MyStarField = new StarField;
+    StarField *MyStarField = new StarField;
     MyStarField->Init();
-    MyAlienBackPlane = new AlienBackPlane;
-
-//		MyWorld->RegisterActor(MyStarField);
-//		MyWorld->RegisterActor(MyAlienBackPlane);
+    AlienBackPlane *MyAlienBackPlane = new AlienBackPlane;
 
     gfx_opengl_setwindowtitle("Destroyers");
 
@@ -83,18 +74,6 @@ int main(int argc, char *argv[])
             DeltaTime = 0.001f;
         }
 
-        //MyStarField->TickToGo -= DeltaTime;
-        //fprintf(stderr, "DeltaTime %f, MyStarField->TickToGo %f\n", DeltaTime, MyStarField->TickToGo);
-
-            //printf("+++ Starfield Scroll Timer expired\n");
-          
-				/*
-        if (MyStarField->TickToGo <= 0.0f) {
-            MyStarField->Scroll();
-            MyStarField->TickToGo = MyStarField->TickFreq;
-        }
-				*/
-
         /* input processing */
 
         if (myTTY->hasinput()) {
@@ -114,6 +93,8 @@ int main(int argc, char *argv[])
         gfx_opengl_unlock();
     }
 
+		MyAlienBackPlane = NULL;
+		delete MyAlienBackPlane;
     exit(0);
 }
 

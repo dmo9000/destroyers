@@ -16,7 +16,7 @@ public:
 		virtual int Tick();
 		int SetBackPlane(AlienBackPlane *bp);
 		int SetGridLocation(int x, int y);		
-
+		int SetBaseColor(Vector3 V);
 
 protected:
 
@@ -24,7 +24,9 @@ private:
 		AlienBackPlane *MyBackPlane = NULL;
 		int GridX = -1;
 		int GridY = -1;
+		int AnimationType = 0;
 		int AnimationPhase = 0;
+		Vector3 BaseColor = { 255, 255, 255 };
 
 };
 

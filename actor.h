@@ -3,6 +3,8 @@
 
 #include <cassert>
 #include "object.h"
+#include "vector2.h"
+#include "vector3.h"
 
 typedef uint8_t u8;
 

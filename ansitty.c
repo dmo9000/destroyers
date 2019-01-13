@@ -99,13 +99,9 @@ ANSITTY* ansitty_init()
 {
     ANSITTY *New_TTY = NULL;
     ANSIRaster *r = NULL;
-    char *font_filename = NULL;
     printf("ansitty_init()\r\n");
 
     New_TTY = new_ansitty(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
-//    font_filename = "bmf/8x8.bmf";
-    //myfont = bmf_load(font_filename);
 
     if (!New_TTY) {
         return NULL;

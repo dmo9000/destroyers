@@ -1,4 +1,5 @@
-
+#ifndef __VECTOR_3__
+#define __VECTOR_3__
 
 typedef struct _vector3 {
     union {
@@ -14,5 +15,7 @@ typedef struct _vector3 {
         uint32_t b;
     };
 } Vector3;
+
+#endif /* __VECTOR_3__ */
 
 
