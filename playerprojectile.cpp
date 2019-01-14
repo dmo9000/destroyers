@@ -4,7 +4,7 @@
 PlayerProjectile::PlayerProjectile()
 {
 
-    bShowDebug = true;
+    //bShowDebug = true;
     if (bShowDebug) {
         std::cerr << "PlayerProjectile created" << std::endl;
     }
@@ -41,7 +41,7 @@ int PlayerProjectile::Tick()
     /* declared virtual, and usually overridden by derived class */
     //std::cerr << "PlayerProjectile::Tick() -> " << TickFreq << ", " << TickToGo << std::endl;
     if (ActorLocation.y >= 4) {
-        ActorLocation.y -= 1;
+        ActorLocation.y -= 2;
     } else {
 //				std::cerr << "Time to despawn!" << std::endl;
         SetTickable(false);
