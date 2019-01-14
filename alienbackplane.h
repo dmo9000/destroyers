@@ -28,18 +28,18 @@ class AlienBackPlane : public Actor
 public:
     AlienBackPlane();
     virtual ~AlienBackPlane();
-		int Tick() override;
+    int Tick() override;
     int Render() override;
-		int GetFormationPosition(Vector2 *p, int x, int y);
+    int GetFormationPosition(Vector2 *p, int x, int y);
 
 protected:
 
 private:
-		int XDirection = 1;
-		int XTickCount = 0;
-		int YTickOffset = 0;
-		AlienActor *Aliens[ALIEN_COLS][ALIEN_ROWS];
-		Vector3 RowColors[ALIEN_ROWS];
+    int XDirection = 1;
+    int XTickCount = 0;
+    int YTickOffset = 0;
+    AlienActor *Aliens[ALIEN_COLS][ALIEN_ROWS];
+    Vector3 RowColors[ALIEN_ROWS];
 
 };
 

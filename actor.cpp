@@ -5,30 +5,30 @@
 Actor::Actor()
 {
 
-//    std::cout << "Actor created" << std::endl;
-		WorldRegister();
+//    std::cerr << "Actor created" << std::endl;
+    WorldRegister();
 
 }
 
 Actor::~Actor()
 {
 
-   std::cout << "Actor destroyed" << std::endl;
+//    std::cerr << "Actor destroyed" << std::endl;
 
 }
 
 int Actor::Render()
 {
-		/* declared virtual, and usually overridden by derived class */
-    std::cout << "Actor::Render()" << std::endl;
+    /* declared virtual, and usually overridden by derived class */
+    std::cerr << "Actor::Render()" << std::endl;
 
 }
 
 int Actor::Tick()
 {
 
-		/* declared virtual, and usually overridden by derived class */
-    std::cout << "Actor::Tick()" << std::endl;
+    /* declared virtual, and usually overridden by derived class */
+    std::cerr << "Actor::Tick()" << std::endl;
 }
 
 int Actor::SubtractDeltaTime(float d)
@@ -36,12 +36,12 @@ int Actor::SubtractDeltaTime(float d)
 
     TickToGo -= d;
 
-		//std::cout << "SubtractDeltaTime(" << d << ") = " << TickToGo << std::endl;
+    //std::cerr << "SubtractDeltaTime(" << d << ") = " << TickToGo << std::endl;
     if (TickToGo <= 0.0f) {
-        //std::cout << "Tick triggered!" << std::endl;
-       	Tick();
-    		TickToGo = TickFreq;
-				//std::cout << "Reset Tick Timer " << TickFreq << std::endl;
+        //std::cerr << "Tick triggered!" << std::endl;
+        Tick();
+        TickToGo = TickFreq;
+        //std::cerr << "Reset Tick Timer " << TickFreq << std::endl;
     }
 
     return 0;
@@ -49,25 +49,53 @@ int Actor::SubtractDeltaTime(float d)
 
 int Actor::WorldRegister()
 {
-	World *ThisWorld = NULL;
-	ThisWorld = GetWorld();
-	assert(ThisWorld);
-	ThisWorld->RegisterActor(this);
-	return 1;
+    World *ThisWorld = NULL;
+    ThisWorld = GetWorld();
+    assert(ThisWorld);
+    ThisWorld->RegisterActor(this);
+    return 1;
 }
 
 bool Actor::IsTickable()
 {
-	return bCanEverTick;
+    return bCanEverTick;
 }
 
 bool Actor::IsVisible()
 {
-	return bIsVisible;
+    return bIsVisible;
 }
 
 bool Actor::SetVisibility(bool vs)
 {
-	bIsVisible = vs;
-	return (bIsVisible);
+    bIsVisible = vs;
+    return (bIsVisible);
+}
+
+bool Actor::SetTickable(bool ts)
+{
+    bCanEverTick = ts;
+    TickToGo= TickFreq;
+    return (bCanEverTick);
+}
+
+
+int Actor::SetActorLocation(Vector2 v)
+{
+
+    ActorLocation.x = v.x;
+    ActorLocation.y = v.y;
+    return 1;
+}
+
+int Actor::SetTickFrequency(float f)
+{
+    TickFreq = f;
+    TickToGo = TickFreq;
+    return 1;
+}
+
+bool Actor::CanBeDeleted()
+{
+    return bCanBeDeleted;
 }

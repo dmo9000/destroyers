@@ -26,7 +26,7 @@ public:
     StarField();
     ~StarField();
     int Init();
-   	int Tick() override;
+    int Tick() override;
     int Render() override;
 
 protected:

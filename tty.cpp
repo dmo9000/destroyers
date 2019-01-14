@@ -4,7 +4,7 @@
 TTY::TTY()
 {
 
-    std::cout << "TTY created" << std::endl;
+    std::cerr << "TTY created" << std::endl;
 
 
 }
@@ -12,14 +12,14 @@ TTY::TTY()
 TTY::~TTY()
 {
 
-    std::cout << "TTY destroyed" << std::endl;
+    std::cerr << "TTY destroyed" << std::endl;
 
 }
 
 int TTY::Init()
 {
 
-    std::cout << "TTY::Init()" << std::endl;
+    std::cerr << "TTY::Init()" << std::endl;
     TTYDevice = (ANSITTY *) ansitty_init();
     return 1;
 }

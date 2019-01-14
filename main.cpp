@@ -9,8 +9,9 @@
 #include "world.h"
 #include "starfield.h"
 #include "alienbackplane.h"
+#include "playeractor.h"
 
-using std::cout;
+using std::cerr;
 using std::endl;
 using std::memset;
 
@@ -23,6 +24,7 @@ extern "C" {
     void gfx_opengl_unlock();
     void gfx_opengl_expose();
     int  gfx_opengl_setwindowtitle(const char *newtitle);
+    int gfx_opengl_disablerepeat();
 };
 
 World *MyWorld = NULL;
@@ -30,7 +32,7 @@ World *MyWorld = NULL;
 World *GetWorld()
 {
 
-		return MyWorld; 
+    return MyWorld;
 }
 
 int main(int argc, char *argv[])
@@ -39,18 +41,22 @@ int main(int argc, char *argv[])
     TTY *myTTY = NULL;
     float DeltaTime = 0.0f;
     bool running = false;
+    int esc_count = 0;
 
     myTTY = new TTY();
     myTTY->Init();
-		MyWorld = new World;
+    MyWorld = new World;
 
-    sleep(1);
+    sleep(3);
+
+    gfx_opengl_setwindowtitle("Destroyers");
+    //gfx_opengl_disablerepeat();
 
     StarField *MyStarField = new StarField;
     MyStarField->Init();
     AlienBackPlane *MyAlienBackPlane = new AlienBackPlane;
+    PlayerActor *Player = new PlayerActor;
 
-    gfx_opengl_setwindowtitle("Destroyers");
 
     running = true;
 
@@ -77,24 +83,55 @@ int main(int argc, char *argv[])
         /* input processing */
 
         if (myTTY->hasinput()) {
-            printf("+++ got data!\n");
-            running = false;
+//            printf("+++ got data!\n");
+            uint8_t c = myTTY->getchar();
+            //				fprintf(stderr, "c = %u\n", c);
+            switch(c) {
+            case 27:
+                esc_count++;
+                break;
+            //case 32:
+            case 122:
+                //fprintf(stderr, "** FIRE! **\n");
+                esc_count = 0;
+                Player->LaunchProjectile();
+                break;
+            case 68:
+                //fprintf(stderr, "<-- LEFT\n");
+                Player->MoveLeft();
+                esc_count = 0;
+                break;
+            case 67:
+                //fprintf(stderr, "RIGHT -->\n");
+                Player->MoveRight();
+                esc_count = 0;
+                break;
+            default:
+                //fprintf(stderr, "c = %u\n", c);
+                esc_count = 0;
+                break;
+            }
         }
 
-				
-				MyWorld->ProcessTicks(DeltaTime);
+        MyWorld->CleanupExpired();
+        MyWorld->ProcessTicks(DeltaTime);
 
         gfx_opengl_lock();
         if (myTTY->TTYDevice->canvas->is_dirty != true) {
             clearTexture(myTTY->TTYDevice->canvas);
-						MyWorld->RenderActors();
+            MyWorld->RenderActors();
         }
         myTTY->TTYDevice->canvas->is_dirty = true;
         gfx_opengl_unlock();
+
+
+        if (esc_count > 1) {
+            running = false;
+        }
     }
 
-		MyAlienBackPlane = NULL;
-		delete MyAlienBackPlane;
+    delete MyAlienBackPlane;
+    delete Player;
     exit(0);
 }
 

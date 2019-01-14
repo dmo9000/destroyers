@@ -5,6 +5,8 @@ CC = gcc
 CXX = g++
 WARNINGS = -Wall
 CFLAGS = $(WARNINGS) -g -ggdb -O2 -c -Iobj -D__MINGW__ -I. -I../ansiutils
+CPPFLAGS = -std=c++11
+CXXFLAGS = -std=c++11
 LFLAGS = $(WARNINGS) -lGL -lGLU -lglut -lm -pthread 
 
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
