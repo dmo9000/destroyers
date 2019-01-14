@@ -1,5 +1,7 @@
 #include <cassert>
 #include "playerprojectile.h"
+#include "alienbackplane.h"
+
 
 PlayerProjectile::PlayerProjectile()
 {
@@ -34,14 +36,18 @@ int PlayerProjectile::Render()
 
 int PlayerProjectile::Tick()
 {
+    AlienBackPlane *MyAlienBackPlane = NULL;
     World *MyWorld = NULL;
     MyWorld = GetWorld();
     assert(MyWorld);
+    MyAlienBackPlane = GetAlienBackPlane();
+    assert(MyAlienBackPlane);
 
     /* declared virtual, and usually overridden by derived class */
     //std::cerr << "PlayerProjectile::Tick() -> " << TickFreq << ", " << TickToGo << std::endl;
     if (ActorLocation.y >= 4) {
         ActorLocation.y -= 2;
+        MyAlienBackPlane->CheckOverlap(this);
     } else {
 //				std::cerr << "Time to despawn!" << std::endl;
         SetTickable(false);

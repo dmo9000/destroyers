@@ -27,6 +27,9 @@ extern "C" {
     int gfx_opengl_disablerepeat();
 };
 
+
+
+/* should these move to world.h/cpp? */
 World *MyWorld = NULL;
 
 World *GetWorld()
@@ -34,6 +37,14 @@ World *GetWorld()
 
     return MyWorld;
 }
+
+AlienBackPlane *MyAlienBackPlane = NULL;
+
+AlienBackPlane *GetAlienBackPlane()
+{
+    return MyAlienBackPlane;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -47,16 +58,15 @@ int main(int argc, char *argv[])
     myTTY->Init();
     MyWorld = new World;
 
-    sleep(3);
+    sleep(1);
 
     gfx_opengl_setwindowtitle("Destroyers");
     //gfx_opengl_disablerepeat();
 
     StarField *MyStarField = new StarField;
     MyStarField->Init();
-    AlienBackPlane *MyAlienBackPlane = new AlienBackPlane;
+    MyAlienBackPlane = new AlienBackPlane;
     PlayerActor *Player = new PlayerActor;
-
 
     running = true;
 

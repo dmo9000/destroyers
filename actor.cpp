@@ -88,6 +88,16 @@ int Actor::SetActorLocation(Vector2 v)
     return 1;
 }
 
+int Actor::GetActorLocation(Vector2 *v)
+{
+
+    v->x = ActorLocation.x;
+    v->y = ActorLocation.y;
+    return 1;
+
+}
+
+
 int Actor::SetTickFrequency(float f)
 {
     TickFreq = f;

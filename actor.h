@@ -29,6 +29,7 @@ public:
     bool SetVisibility(bool v);
     bool SetTickable(bool t);
     int SetActorLocation(Vector2 l);
+    int GetActorLocation(Vector2 *l);
     int SetTickFrequency(float f);
     bool CanBeDeleted();
     /* ready for deletion? wrap in method call please */

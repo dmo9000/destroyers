@@ -1,4 +1,5 @@
 #include "alienbackplane.h"
+#include "world.h"
 
 
 AlienBackPlane::AlienBackPlane()
@@ -29,6 +30,7 @@ AlienBackPlane::AlienBackPlane()
             Aliens[ii][jj]->SetVisibility(true);
             Aliens[ii][jj]->SetBaseColor(RowColors[jj]);
             Aliens[ii][jj]->SetAnimationType(jj % 5);
+            AlienCount++;
         }
     }
 
@@ -99,4 +101,44 @@ int AlienBackPlane::GetFormationPosition(Vector2 *p, int x, int y)
     p->y = ARRAY_YOFFSET + (y * ALIEN_CELLSIZE) + YTickOffset;
 
     return 1;
+}
+
+int AlienBackPlane::CheckOverlap(Actor *a)
+{
+
+    World *MyWorld = NULL;
+    Vector2 ActorLocation;
+    Vector2 CellLocation;
+//    std::cerr << "AlienBackPlane::CheckOverlap()" << std::endl;
+    assert(a);
+    a->GetActorLocation(&ActorLocation);
+    //std::cerr << "AlienBackPlane::Object = " << ActorLocation.x << ", " << ActorLocation.y << std::endl;
+
+    /* we go backwards through the rows as a cheap optimization, since the projectiles travel up the screen */
+
+    for (int jj = ALIEN_ROWS-1; jj >= 0; jj--) {
+        for (int ii = 0; ii < ALIEN_COLS; ii++) {
+            GetFormationPosition(&CellLocation, ii, jj);
+            if (ActorLocation.x >= CellLocation.x && ActorLocation.x < (CellLocation.x + 48) &&
+                    ActorLocation.y >= CellLocation.y && ActorLocation.y < (CellLocation.y + 48)) {
+                MyWorld = GetWorld();
+                //std::cerr << "+++ Projectile overlapped with cell " << ii << ", " << jj << std::endl;
+                /* delete the alien */
+                if (Aliens[ii][jj]) {
+                    Aliens[ii][jj]->SetTickable(false);
+                    Aliens[ii][jj]->SetVisibility(false);
+                    MyWorld->UnregisterActor(Aliens[ii][jj]);
+                    Aliens[ii][jj] = NULL;
+                    AlienCount--;
+                    std::cerr << "+++ AlienCount is now " << AlienCount << std::endl;
+                    if (!AlienCount) {
+                        std::cerr << "+++ WAVE COMPLETED! +++" << std::endl;
+                    }
+                }
+            }
+        }
+    }
+
+    return 1;
+
 }

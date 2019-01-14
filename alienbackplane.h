@@ -31,6 +31,7 @@ public:
     int Tick() override;
     int Render() override;
     int GetFormationPosition(Vector2 *p, int x, int y);
+    int CheckOverlap(Actor *a);
 
 protected:
 
@@ -38,9 +39,12 @@ private:
     int XDirection = 1;
     int XTickCount = 0;
     int YTickOffset = 0;
+    int AlienCount = 0;
     AlienActor *Aliens[ALIEN_COLS][ALIEN_ROWS];
     Vector3 RowColors[ALIEN_ROWS];
 
 };
+
+AlienBackPlane *GetAlienBackPlane();
 
 #endif /* __ALIENBACKPLANE_H__ */
