@@ -78,6 +78,14 @@ int AlienBackPlane::Tick()
         XDirection = XDirection * -1;
         if (YTickOffset <= 64) {
             YTickOffset += 2;
+            //TickFreq -= 10.0f;
+            //
+            /*
+            	TickFreq /= 2.0;
+            	if (TickFreq <= 50.0f) {
+            		TickFreq = 50.0f;
+            		}
+            		*/
         }
         ChangedDirectionFlag = true;
     } else {
@@ -119,8 +127,8 @@ int AlienBackPlane::CheckOverlap(Actor *a)
     for (int jj = ALIEN_ROWS-1; jj >= 0; jj--) {
         for (int ii = 0; ii < ALIEN_COLS; ii++) {
             GetFormationPosition(&CellLocation, ii, jj);
-            if (ActorLocation.x >= CellLocation.x && ActorLocation.x < (CellLocation.x + 48) &&
-                    ActorLocation.y >= CellLocation.y && ActorLocation.y < (CellLocation.y + 48)) {
+            if (ActorLocation.x >= CellLocation.x+16 && ActorLocation.x < (CellLocation.x + 32) &&
+                    ActorLocation.y >= CellLocation.y+16 && ActorLocation.y < (CellLocation.y + 32)) {
                 MyWorld = GetWorld();
                 //std::cerr << "+++ Projectile overlapped with cell " << ii << ", " << jj << std::endl;
                 /* delete the alien */
@@ -134,6 +142,15 @@ int AlienBackPlane::CheckOverlap(Actor *a)
                     if (!AlienCount) {
                         std::cerr << "+++ WAVE COMPLETED! +++" << std::endl;
                     }
+
+                    /* delete the projectile */
+
+                    a->SetTickable(false);
+                    a->SetVisibility(false);
+                    MyWorld->UnregisterActor(a);
+
+                    /* TODO: spawn a particle system explosion! */
+
                 }
             }
         }

@@ -169,6 +169,6 @@ int PlayerActor::LaunchProjectile()
     MyNewProjectile->SetVisibility(true);
     MyNewProjectile->SetTickFrequency(PROJECTILE_SPEED);
     MyNewProjectile->SetTickable(true);
-    CoolDownTimer = 500.0f;
+    CoolDownTimer = 1000.0f;
     return 1;
 }
