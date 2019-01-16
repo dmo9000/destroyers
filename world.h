@@ -18,11 +18,13 @@ public:
     int RenderActors();
     int ProcessTicks(float d);
     int CleanupExpired();
+		int SpawnQueuedActors();
 
 protected:
 
 private:
     std::vector<Actor*> RegisteredActors;
+    std::vector<Actor*> SpawnedActors;
     int cleanup_count = 0;
 
 };

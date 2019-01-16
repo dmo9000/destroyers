@@ -1,5 +1,7 @@
 #include "alienbackplane.h"
+#include "particlesystem.h"
 #include "world.h"
+
 
 
 AlienBackPlane::AlienBackPlane()
@@ -133,11 +135,20 @@ int AlienBackPlane::CheckOverlap(Actor *a)
                 //std::cerr << "+++ Projectile overlapped with cell " << ii << ", " << jj << std::endl;
                 /* delete the alien */
                 if (Aliens[ii][jj]) {
+										ParticleSystem *MyParticleSystem = NULL;
                     Aliens[ii][jj]->SetTickable(false);
                     Aliens[ii][jj]->SetVisibility(false);
                     MyWorld->UnregisterActor(Aliens[ii][jj]);
                     Aliens[ii][jj] = NULL;
                     AlienCount--;
+
+										MyParticleSystem = new ParticleSystem;
+
+										MyParticleSystem->SetActorLocation(CellLocation);
+										MyParticleSystem->Setup();
+										MyParticleSystem->SetVisibility(true);
+										MyParticleSystem->SetTickable(true);
+
                     std::cerr << "+++ AlienCount is now " << AlienCount << std::endl;
                     if (!AlienCount) {
                         std::cerr << "+++ WAVE COMPLETED! +++" << std::endl;
@@ -149,10 +160,12 @@ int AlienBackPlane::CheckOverlap(Actor *a)
                     a->SetVisibility(false);
                     MyWorld->UnregisterActor(a);
 
-                    /* TODO: spawn a particle system explosion! */
 
-                }
-            }
+                } else {
+								/* alien is detached (flying?) or already dead */
+
+								}
+            } 
         }
     }
 

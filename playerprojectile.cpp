@@ -43,17 +43,14 @@ int PlayerProjectile::Tick()
     MyAlienBackPlane = GetAlienBackPlane();
     assert(MyAlienBackPlane);
 
-    /* declared virtual, and usually overridden by derived class */
     //std::cerr << "PlayerProjectile::Tick() -> " << TickFreq << ", " << TickToGo << std::endl;
     if (ActorLocation.y >= 4) {
         ActorLocation.y -= 2;
         MyAlienBackPlane->CheckOverlap(this);
     } else {
-//				std::cerr << "Time to despawn!" << std::endl;
         SetTickable(false);
         SetVisibility(false);
         MyWorld->UnregisterActor(this);
-        //delete this;
     }
 
     return 1;

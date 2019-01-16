@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     myTTY->Init();
     MyWorld = new World;
 
-    sleep(1);
+    sleep(3);
 
     gfx_opengl_setwindowtitle("Destroyers");
     //gfx_opengl_disablerepeat();
@@ -125,6 +125,7 @@ int main(int argc, char *argv[])
 
         MyWorld->CleanupExpired();
         MyWorld->ProcessTicks(DeltaTime);
+        MyWorld->SpawnQueuedActors();
 
         gfx_opengl_lock();
         if (myTTY->TTYDevice->canvas->is_dirty != true) {

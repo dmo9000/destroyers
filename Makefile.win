@@ -8,14 +8,14 @@ CFLAGS = $(WARNINGS)  -funroll-loops -c -Iobj -D__MINGW__ -I. -I../ansiutils
 
 #CXXFLAGS = -g -ggdb -std=c++11
 #CXXFLAGS = -g -ggdb -std=c++11 -Os -funroll-loops -I../ansiutils
-CXXFLAGS = -std=c++11 -Os -funroll-loops -I../ansiutils
+CXXFLAGS = -std=c++11 -Os -ggdb -funroll-loops -I../ansiutils
 
 
 LFLAGS = $(WARNINGS)  
 
 OGL_OBJS=../ansiutils/gfx_opengl.o ../ansiutils/bmf.o ../ansiutils/libansicanvas.a 
 
-CPP_OBJS=main.o tty.o object.o actor.o world.o starfield.o playeractor.o playerprojectile.o alienbackplane.o alienactor.o
+CPP_OBJS=main.o tty.o object.o actor.o world.o starfield.o playeractor.o playerprojectile.o alienbackplane.o alienactor.o particlesystem.o
 
 all: destroyers
 

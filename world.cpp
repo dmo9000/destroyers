@@ -21,10 +21,11 @@ World::~World()
 int World::RegisterActor(Actor *a)
 {
 
-//    std::cerr << "Registering actor ... " << std::endl;
+    std::cerr << "Registering actor ... " << std::endl;
 
-    RegisteredActors.push_back(a);
-    //	std::cerr << "Register::WorldActorCount=" << RegisteredActors.size() << std::endl;
+//    RegisteredActors.push_back(a);
+    SpawnedActors.push_back(a);
+   	std::cerr << "Register::WorldActorCount=" << RegisteredActors.size() << std::endl;
 }
 
 int World::UnregisterActor(Actor *a)
@@ -53,6 +54,21 @@ int World::RenderActors()
             (*iter)->Render();
         }
     }
+}
+
+int World::SpawnQueuedActors()
+{
+
+    std::vector<Actor*>::iterator iter, end;
+    for (iter =SpawnedActors.begin() ; iter != SpawnedActors.end(); ++iter) {
+        if ((*iter)) {
+								RegisteredActors.push_back(*iter);
+                *iter = NULL;
+        }
+    }
+    SpawnedActors.erase(std::remove(SpawnedActors.begin(), SpawnedActors.end(), (Actor*) NULL), SpawnedActors.end());
+
+		return 1;
 }
 
 
